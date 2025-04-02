@@ -22,7 +22,7 @@ export default function Leaderboard({ onSelectPlayer, selectedPlayerId, selected
 
 ///////////////////////////////////////////////////////////////////////
 // Below is the javascript functionality for the leaderboard component
-// HTML/UI can be found at the bottom of the file
+// JSX/UI can be found at the bottom of the file
 ///////////////////////////////////////////////////////////////////////
   // Filtering and removing players from table based on filters
   useEffect(() => {
@@ -445,7 +445,7 @@ export default function Leaderboard({ onSelectPlayer, selectedPlayerId, selected
   const sortedPlayers = sortPlayers(filteredPlayers);
 
 ////////////////////////////////////////////////////////////
-// Below is the UI/HTML for the leaderboard component
+// Below is the UI/JSX for the leaderboard component
 // All functionality code is above this section
 ////////////////////////////////////////////////////////////
 

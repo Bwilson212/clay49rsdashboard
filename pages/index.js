@@ -6,7 +6,7 @@ import Scores from '../components/scores';
 ///////////////////////////////////////////////////////////////////////
 // This is our primary dashboard page, which uses the leaderboard 
 // and scores component to meet the spec requirements
-// HTML/UI can be found at the bottom of the file
+// JSX/UI can be found at the bottom of the file
 ///////////////////////////////////////////////////////////////////////
 
 
@@ -113,7 +113,7 @@ export default function Home() {
   };
 
 ///////////////////////////////////////////////////////////////////////
-// Below is the HTML/UI for the dashboard page
+// Below is the JSX/UI for the dashboard page
 // All functionality code is above this section
 ///////////////////////////////////////////////////////////////////////
 

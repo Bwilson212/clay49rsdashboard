@@ -7,6 +7,13 @@ export default function Scores({ onGameSelect }) {
   const [error, setError] = useState(null);
   const [selectedGameId, setSelectedGameId] = useState(null);
   
+
+///////////////////////////////////////////////////////////////////////
+// Below is the javascript functionality for the leaderboard component
+// JSX/UI can be found at the bottom of the file
+///////////////////////////////////////////////////////////////////////
+
+
   // Fetch games data from the API
   useEffect(() => {
     const getGames = async () => {
@@ -123,7 +130,7 @@ export default function Scores({ onGameSelect }) {
 
 
 ////////////////////////////////////////////////////////////
-// Below is the UI/HTML for the leaderboard component
+// Below is the UI/JSX for the leaderboard component
 // All functionality code is above this section
 ////////////////////////////////////////////////////////////
 
