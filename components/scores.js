@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { fetchGames } from '../utils/api';
 
+/**
+ * @component Scores
+ * @description Displays a horizontal scrollable view of 49ers game scores with team logos and results
+ * @param {Object} props - Component props
+ * @param {Function} props.onGameSelect - Callback function triggered when a game is selected
+ * @returns {JSX.Element} Game scores component with interactive game cards
+ */
+
 export default function Scores({ onGameSelect }) {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +22,12 @@ export default function Scores({ onGameSelect }) {
 ///////////////////////////////////////////////////////////////////////
 
 
-  // Fetch games data from the API
+  
+  /**
+   * @effect
+   * @description Fetches games data from the API on component mount
+   * @dependencies []
+   */
   useEffect(() => {
     const getGames = async () => {
       try {
@@ -37,7 +50,11 @@ export default function Scores({ onGameSelect }) {
     getGames();
   }, []);
   
-  // Event listener for clicking outside of a game box
+    /**
+   * @effect
+   * @description Sets up event listener for clicks outside game boxes to deselect games
+   * @dependencies []
+   */  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!event.target.closest('.game-box')) {
@@ -51,8 +68,12 @@ export default function Scores({ onGameSelect }) {
       document.removeEventListener('click', handleClickOutside);
     };
   }, []);
-  
-  // Pull team logo based on opponent name
+  /** 
+  * @function getTeamLogoPath
+  * @description Generates path to team logo image based on opponent name
+  * @param {string} opponent - Full opponent team name (e.g., "San Francisco 49ers")
+  * @returns {string|null} Path to the team's logo image or null if opponent is invalid
+  */
   const getTeamLogoPath = (opponent) => {
     if (!opponent) return null;
     

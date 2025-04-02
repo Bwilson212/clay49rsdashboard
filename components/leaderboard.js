@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { fetchPlayers, fetchGamePlayers } from '../utils/api';
 
+/**
+ * @component Leaderboard
+ * @description Displays a sortable table of player statistics with filtering
+ * @param {Object} props - Component props
+ * @param {Function} props.onSelectPlayer - Callback function triggered when a player is selected
+ * @param {number|null} props.selectedPlayerId - ID of the currently selected player
+ * @param {Object|null} props.selectedGame - Currently selected game object containing game details
+ * @returns {JSX.Element} A sortable and filterable leaderboard component
+ */
+
 export default function Leaderboard({ onSelectPlayer, selectedPlayerId, selectedGame }) {
   const [players, setPlayers] = useState([]);
   const [filteredPlayers, setFilteredPlayers] = useState([]);
@@ -24,6 +34,7 @@ export default function Leaderboard({ onSelectPlayer, selectedPlayerId, selected
 // Below is the javascript functionality for the leaderboard component
 // JSX/UI can be found at the bottom of the file
 ///////////////////////////////////////////////////////////////////////
+
   // Filtering and removing players from table based on filters
   useEffect(() => {
     window.setLeaderboardFilter = (filterName, value) => {
@@ -147,7 +158,17 @@ export default function Leaderboard({ onSelectPlayer, selectedPlayerId, selected
     }
   }, [selectedGame, players, filters]);
 
-  // Function to apply filters to the player list
+    /**
+   * @function applyFilters
+   * @description Filters the player list based on specified criteria
+   * @param {Array} playerList - The array of players to filter
+   * @param {Object} [currentFilters=filters] - Filter criteria to apply
+   * @param {string} [currentFilters.position] - Position filter
+   * @param {number} [currentFilters.minTouchdowns] - Minimum touchdowns filter
+   * @param {number} [currentFilters.minYards] - Minimum yards filter
+   * @param {number} [currentFilters.minTackles] - Minimum tackles filter
+   * @param {string} [currentFilters.searchName] - Player name search string
+   */
   const applyFilters = (playerList, currentFilters = filters) => {
     // Determine which data source to use for filtering
     const sourceList = selectedGame ? gameStats : playerList;
@@ -224,7 +245,12 @@ export default function Leaderboard({ onSelectPlayer, selectedPlayerId, selected
     setFilteredPlayers(result);
   };
 
-  // Our ranks arent actually in the data, so we are just creating them here
+  /**
+   * @function ensurePlayerRanks
+   * @description Ensures player ranks are calculated and added to the player objects
+   * @param {Array} players - The array of players to ensure ranks for
+   * @returns {Array} The players with calculated ranks
+   */
   const ensurePlayerRanks = (players) => {
     // First deduplicate the input to avoid unnecessary processing
     const uniqueIdMap = new Map();
@@ -291,7 +317,13 @@ export default function Leaderboard({ onSelectPlayer, selectedPlayerId, selected
     return playersWithRanks;
   };
 
-  // Generate placeholder name for players with errors
+  /**
+   * @function getPlayerName
+   * @description Generates a placeholder name for players with errors
+   * @param {Object} player - The player object to get the name for
+   * @param {number} index - The index of the player in the array
+   * @returns {string} The player's name
+   */
   const getPlayerName = (player, index) => {
     if (player.player_name && !player.player_name.includes('error:')) {
       return player.player_name;
@@ -299,7 +331,12 @@ export default function Leaderboard({ onSelectPlayer, selectedPlayerId, selected
     return `Player ${player.id || index + 1}`;
   };
 
-
+  /**
+   * @function getRealisticPosition
+   * @description Generates a realistic position for players with errors
+   * @param {Object} player - The player object to get the position for
+   * @returns {string} The player's position
+   */
   // backup in case we get a position we don't understand or N/A
   const getRealisticPosition = (player) => {
     if (player.position && player.position !== 'N/A') {

@@ -2,6 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import Leaderboard from '../components/leaderboard';
 import Scores from '../components/scores';
 
+/**
+ * @component Home
+ * @description Main dashboard page showing game scores and player statistics from components
+ * @returns {JSX.Element} Complete dashboard with scores, leaderboard and player details
+ */
 
 ///////////////////////////////////////////////////////////////////////
 // This is our primary dashboard page, which uses the leaderboard 
@@ -19,7 +24,11 @@ export default function Home() {
 
   // ref for clicking outside the panel
   const playerDetailRef = useRef(null);
-  
+  /**
+   * @effect
+   * @description Sets up click handler to close player detail panel when clicking outside
+   * @dependencies [selectedPlayer]
+   */
   // Add click handler to detect clicks outside the player panel
   useEffect(() => {
     function handleClickOutside(event) {
@@ -43,6 +52,11 @@ export default function Home() {
     };
   }, [selectedPlayer]);
 
+  /**
+   * @effect
+   * @description Sets up click handler to close filter dropdown when clicking outside
+   * @dependencies []
+   */
   // clicks outside the filter dropdown
   useEffect(() => {
     function handleClickOutsideFilter(event) {
@@ -68,6 +82,11 @@ export default function Home() {
     };
   }, []);
 
+  /**
+   * @effect
+   * @description Fetches games data from the database on component mount
+   * @dependencies []
+   */
   useEffect(() => {
     setLoading(true);
     

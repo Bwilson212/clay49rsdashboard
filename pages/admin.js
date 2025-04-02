@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import { createGame, updateGame, deleteGame, createPlayer, updatePlayer, deletePlayer } from '../utils/api';
 
+/**
+ * @component AdminPanel
+ * @description Administrative interface for managing game and player data with full CRUD functionality
+ * @returns {JSX.Element} Admin page with all required buttons and web functionality
+ */
 
 ///////////////////////////////////////////////////////////////////////
 // CRUD functionality was listed in the requirements for this project,
 // so i went ahead and implemented a new page for it, just to cover all bases
-// HTML/UI can be found at the bottom of the file
+// JSX/UI can be found at the bottom of the file
 ///////////////////////////////////////////////////////////////////////
 
 
@@ -199,7 +204,7 @@ export default function AdminPanel() {
 
 
 ///////////////////////////////////////////////////////////////////////
-// Below is the HTML/UI for the admin panel
+// Below is the JSX/UI for the admin panel
 // All functionality code is above this section
 ///////////////////////////////////////////////////////////////////////
 
