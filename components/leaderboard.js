@@ -136,11 +136,12 @@ export default function Leaderboard({ onSelectPlayer, selectedPlayerId, selected
           const playersWithRanks = ensurePlayerRanks(uniquePlayers);
           
           setGameStats(playersWithRanks);
-          setFilteredPlayers(playersWithRanks);
           
-          // Apply any active filters to the new game data
+          // CRITICAL FIX: Apply filters to the new game data and update filtered players
           if (Object.values(filters).some(val => val !== '' && val !== 0)) {
             applyFilters(playersWithRanks, filters);
+          } else {
+            setFilteredPlayers(playersWithRanks);
           }
           
           setLoading(false);
@@ -150,11 +151,19 @@ export default function Leaderboard({ onSelectPlayer, selectedPlayerId, selected
           setLoading(false);
           
           // On error, revert to season stats
+          if (Object.values(filters).some(val => val !== '' && val !== 0)) {
+            applyFilters(players, filters);
+          } else {
           setFilteredPlayers(players);
+          }
         });
     } else if (players.length > 0) {
       // If no game is selected, revert to season stats
-      setFilteredPlayers(players);
+      if (Object.values(filters).some(val => val !== '' && val !== 0)) {
+        applyFilters(players, filters);
+      } else {
+        setFilteredPlayers(players);
+      }
     }
   }, [selectedGame, players, filters]);
 
@@ -170,8 +179,8 @@ export default function Leaderboard({ onSelectPlayer, selectedPlayerId, selected
    * @param {string} [currentFilters.searchName] - Player name search string
    */
   const applyFilters = (playerList, currentFilters = filters) => {
-    // Determine which data source to use for filtering
-    const sourceList = selectedGame ? gameStats : playerList;
+    // Use the correct source list - FIXED: always use the source list passed in
+    const sourceList = playerList;
     let result = [...sourceList];
     let activeFiltersText = '';
     
@@ -243,6 +252,7 @@ export default function Leaderboard({ onSelectPlayer, selectedPlayerId, selected
     }
     
     setFilteredPlayers(result);
+    return result; // Return the filtered results for immediate use if needed
   };
 
   /**
@@ -1047,7 +1057,28 @@ export default function Leaderboard({ onSelectPlayer, selectedPlayerId, selected
                         justifyContent: 'center',
                         overflow: 'hidden'
                       }}>
-                        <svg width="60" height="60" viewBox="0 0 24 24" fill="#AA0000">
+                        <img 
+                          src={`/images/players/deebo.png`}
+                          alt={player.player_name}
+                          onError={(e) => {
+                            // Fallback to placeholder SVG if image doesn't exist
+                            e.target.style.display = 'none';
+                            e.target.nextElementSibling.style.display = 'block';
+                          }}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            borderRadius: '8px'
+                          }}
+                        />
+                        <svg 
+                          width="60" 
+                          height="60" 
+                          viewBox="0 0 24 24" 
+                          fill="#AA0000"
+                          style={{display: 'none'}} // Initially hidden
+                        >
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
                         </svg>
                       </div>

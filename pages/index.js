@@ -226,7 +226,7 @@ export default function Home() {
       
 
       
-      {/* MOVED: Filter and Export Bar - now outside the grid, spans full width */}
+      {/* MOVED: Filter and Export Bar */}
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -638,10 +638,10 @@ export default function Home() {
           {/* Updated Leaderboard and Player Details Container */}
           <div style={{ 
             display: 'grid',
-            gridTemplateColumns: selectedPlayer ? '60% 40%' : '1fr', // Split when player is selected
+            gridTemplateColumns: selectedPlayer ? '70% 30%' : '1fr', // Changed from 65%/35% to 70%/30%
             gap: '20px'
           }}>
-            {/* Leaderboard Component - now takes up less width when player selected */}
+            {/* Leaderboard Component */}
             <div style={{ 
               background: 'white', 
               borderRadius: '8px', 
@@ -664,27 +664,27 @@ export default function Home() {
                   background: 'white', 
                   borderRadius: '8px', 
                   boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                  padding: '20px',
+                  padding: '15px',
                   height: 'fit-content'
                 }}
               >
                 <div style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '15px'
+                  gap: '12px' // Reduced gap between sections
                 }}>
                   {/* Player Header */}
                   <div style={{ 
                     display: 'flex', 
                     alignItems: 'center', 
-                    gap: '15px',
+                    gap: '12px', // Reduced gap
                     borderBottom: '1px solid #eee',
-                    paddingBottom: '15px'
+                    paddingBottom: '12px' // Reduced padding
                   }}>
-                    {/* Player Image/Avatar */}
+                    {/* Player Image/Avatar - Made smaller */}
                     <div style={{
-                      width: '80px',
-                      height: '80px',
+                      width: '70px', // Reduced from 80px
+                      height: '70px', // Reduced from 80px
                       borderRadius: '8px',
                       background: '#f0f0f0',
                       display: 'flex',
@@ -692,7 +692,29 @@ export default function Home() {
                       justifyContent: 'center',
                       overflow: 'hidden'
                     }}>
-                      <svg width="60" height="60" viewBox="0 0 24 24" fill="#AA0000">
+                      <img 
+                        src="/images/deebo.png"
+                        alt="Player"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          borderRadius: '8px'
+                        }}
+                        onError={(e) => {
+                          // Fallback to SVG if image doesn't load
+                          e.target.style.display = 'none';
+                          e.target.nextElementSibling.style.display = 'block';
+                        }}
+                      />
+                      {/* Keep SVG as fallback but initially hidden */}
+                      <svg 
+                        width="60" 
+                        height="60" 
+                        viewBox="0 0 24 24" 
+                        fill="#AA0000" 
+                        style={{display: 'none'}}
+                      >
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
                       </svg>
                     </div>

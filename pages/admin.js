@@ -291,7 +291,7 @@ export default function AdminPanel() {
           boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
         }}>
           <h3 style={{ margin: '0 0 10px 0', color: '#333' }}>Database Management</h3>
-          <p>This admin panel allows you to perform CRUD operations on your MySQL database:</p>
+          <p>This page will allow us to make sure we have CRUD functionality on mysql. Although in any real scenario this would be blocked from the dashboard, I just added a button for the sake of testing</p>
           <ul style={{ margin: '10px 0', paddingLeft: '20px' }}>
             <li>Create new games and player records</li>
             <li>Read existing data from your database</li>
