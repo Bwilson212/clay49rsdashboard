@@ -1,6 +1,7 @@
 startup: 
 brew install php
 brew install mysql
+brew services start mysql
 mysql -u root < backend/database.sql
 npm install
 php -S localhost:8000
